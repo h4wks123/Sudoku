@@ -5,6 +5,8 @@ import {
   toggleInsert,
   solveSudoku,
 } from "./SudokuLogic";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sudoku = () => {
   const [matrix, setMatrix] = useState(
@@ -12,7 +14,35 @@ const Sudoku = () => {
       .fill()
       .map(() => Array(5).fill(0))
   );
+
   const [editable, setEditable] = useState(false);
+
+  const handleSolveSudoku = () => {
+    const isSolved = solveSudoku(setMatrix, matrix);
+    if (isSolved) {
+      toast.success("Soduko is solved!", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      toast.error('No solution available!', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -64,11 +94,12 @@ const Sudoku = () => {
         </button>
         <button
           className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-          onClick={() => solveSudoku(setMatrix, matrix)}
+          onClick={handleSolveSudoku}
         >
           Solve
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };

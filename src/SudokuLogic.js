@@ -63,7 +63,8 @@ export const solveSudoku = (setMatrix, matrix) => {
 
   if (solve()) {
     setMatrix(newMatrix);
+    return true;
   } else {
-    alert("There is no solution for the sudoku puzzle!");
+    return false
   }
 };
