@@ -20,7 +20,7 @@ const Sudoku = () => {
   const handleSolveSudoku = () => {
     const isSolved = solveSudoku(setMatrix, matrix);
     if (isSolved) {
-      toast.success("Soduko is solved!", {
+      toast.success("Sudoku is solved!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -31,7 +31,7 @@ const Sudoku = () => {
         theme: "dark",
       });
     } else {
-      toast.error('No solution available!', {
+      toast.error("No solution available!", {
         position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -40,23 +40,28 @@ const Sudoku = () => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className="text-green-600 text-4xl">SUDOKU</h1>
-      <div className="w-1/2 h-3/4 bg-tier2 rounded-md mt-5">
+      <h1 className="text-green-600 text-4xl font-semibold">
+        SUDOKU PROBLEM SOLVER
+      </h1>
+      <div className="w-1/2 h-3/4 bg-tier2 border-b-4 border-l-4 border-green-800 rounded-md mt-5">
         <table className="table-fixed w-full h-full">
           <tbody>
             {matrix.map((row, rowIndex) => (
-              <tr key={rowIndex}>
+              <tr key={rowIndex} className="border-t-4 border-green-800">
                 {row.map((value, colIndex) => (
-                  <td className="w-1/5 text-center" key={colIndex}>
+                  <td
+                    className="w-1/5 text-center border-r-4 border-green-800"
+                    key={colIndex}
+                  >
                     {editable ? (
                       <input
-                        className="w-1/3"
+                        className="w-1/3 bg-gray-300 rounded-sm text-lg"
                         value={value}
                         onChange={(e) => {
                           const newValue = parseInt(e.target.value, 10) || 0;
@@ -70,7 +75,7 @@ const Sudoku = () => {
                         }}
                       />
                     ) : (
-                      <span>{value}</span>
+                      <span className="text-lg">{value}</span>
                     )}
                   </td>
                 ))}
@@ -81,19 +86,19 @@ const Sudoku = () => {
       </div>
       <div className="mt-5">
         <button
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mr-5"
+          className="bg-tier2 hover:bg-tier3 text-white font-bold py-2 px-4 border-b-4 border-green-800 hover:border-green-700 rounded mr-5"
           onClick={() => refreshSudoku(setMatrix, setEditable)}
         >
           Refresh
         </button>
         <button
-          className="bg-blue-500 hover-bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded mr-5"
+          className="bg-tier2 hover:bg-tier3 text-white font-bold py-2 px-4 border-b-4 border-green-800 hover:border-green-700 rounded mr-5"
           onClick={() => toggleInsert(editable, setEditable)}
         >
           {editable ? "Save" : "Insert"}
         </button>
         <button
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          className="bg-tier2 hover:bg-tier3 text-white font-bold py-2 px-4 border-b-4 border-green-800 hover:border-green-700 rounded"
           onClick={handleSolveSudoku}
         >
           Solve

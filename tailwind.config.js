@@ -15,6 +15,9 @@ module.exports = {
         tier3: "#5BA95D",
         tier4: "#404C54",
       },
+      borderColor: {
+        "custom-color": "#5BA95D",
+      },
     },
   },
   plugins: [],
