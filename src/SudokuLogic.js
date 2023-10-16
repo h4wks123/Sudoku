@@ -27,8 +27,41 @@ export const toggleInsert = (editable, setEditable) => {
   setEditable(!editable);
 };
 
+// Validation function to check if initial inputs are valid
+const isInitialInputValid = (matrix) => {
+  // Check rows for duplicate values
+  for (let row = 0; row < 5; row++) {
+    const rowValues = new Set();
+    for (let col = 0; col < 5; col++) {
+      const value = matrix[row][col];
+      if (value !== 0 && rowValues.has(value)) {
+        return false;
+      }
+      rowValues.add(value);
+    }
+  }
+
+  // Check columns for duplicate values
+  for (let col = 0; col < 5; col++) {
+    const colValues = new Set();
+    for (let row = 0; row < 5; row++) {
+      const value = matrix[row][col];
+      if (value !== 0 && colValues.has(value)) {
+        return false;
+      }
+      colValues.add(value);
+    }
+  }
+
+  return true;
+};
+
 export const solveSudoku = (setMatrix, matrix) => {
   const newMatrix = matrix.map((row) => [...row]); // Create a copy of the input matrix.
+
+  if (!isInitialInputValid(newMatrix)) {
+    return false;
+  }
 
   const isSafe = (row, col, num) => {
     // Check if 'num' is not already in the current row or column
@@ -65,6 +98,6 @@ export const solveSudoku = (setMatrix, matrix) => {
     setMatrix(newMatrix);
     return true;
   } else {
-    return false
+    return false;
   }
 };
